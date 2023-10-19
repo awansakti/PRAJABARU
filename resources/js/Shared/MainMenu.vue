@@ -70,7 +70,9 @@ export default {
             this.menu_items.push({'name': 'Pertanyaan Umum', 'route': 'faqs', 'url': 'faqs', 'icon': 'faq'})
         }
 
-        
+        if(enable_option.faq && (user_access.faq.read || user_access.faq.update || user_access.faq.create || user_access.faq.delete)){
+            this.menu_items.push({'name': 'Satuan Kerja', 'route': 'satker', 'url': 'satker', 'icon': 'departments'})
+        }
 
         if(enable_option.kb && (user_access.knowledge_base.read || user_access.knowledge_base.update || user_access.knowledge_base.create || user_access.knowledge_base.delete)){
             this.menu_items.push({'name': 'Basis Pengetahuan', 'route': 'knowledge_base', 'url': 'knowledge_base', 'icon': 'knowledge'})

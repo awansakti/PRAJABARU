@@ -32,6 +32,7 @@ use App\Http\Controllers\FrontPagesController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\SubscriptionController;
+use App\Http\Controllers\SatkerController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\InstallController;
 
@@ -48,8 +49,8 @@ use App\Http\Controllers\InstallController;
 
 // Auth
 
-Route::get('login', [AuthenticatedSessionController::class, 'create'])
-    ->name('login')
+Route::get('/', [AuthenticatedSessionController::class, 'create'])
+    ->name('home')
     ->middleware('guest');
 
 Route::get('register', [AuthenticatedSessionController::class, 'register'])
@@ -184,6 +185,19 @@ Route::prefix('dashboard')->group(function () {
         ->middleware('auth');
     Route::put('settings/categories/{category}/restore', [CategoriesController::class, 'restore'])
         ->name('categories.restore')
+        ->middleware('auth');
+
+    // Satuan Kerja
+    Route::get('satker', [SatkerController::class, 'index'])
+        ->name('satker')
+        ->middleware('auth');
+
+    Route::get('satker/create', [SatkerController::class, 'create'])
+        ->name('satker.create')
+        ->middleware('auth');
+
+    Route::get('satker/{satker}/edit', [SatkerController::class, 'edit'])
+        ->name('satker.edit')
         ->middleware('auth');
 
     /** Chat functions */
@@ -706,8 +720,8 @@ Route::get('/language/{language}', [DashboardController::class, 'setLocale'])
     ->name('language');
 
 /** Site Front-Landing */
-Route::get('/', [HomeController::class, 'index'])
-    ->name('home');
+// Route::get('/home', [HomeController::class, 'index'])
+//     ->name('home');
 
 Route::get('terms-of-services', [PageController::class, 'terms'])
     ->name('terms_service');
